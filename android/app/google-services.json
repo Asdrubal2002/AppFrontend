@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "703870827654",
+    "project_id": "ruvlo-167ef",
+    "storage_bucket": "ruvlo-167ef.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:703870827654:android:58c7bc9cd5e14369bbe507",
+        "android_client_info": {
+          "package_name": "com.tuempresa.ruvlo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDh8Tbb4jzDY0oDrb3_X_j7_64tzwSzJMs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,8 @@
+{
+  "android": {
+    "icon": "ICON FILE PATH"
+  },
+  "ios": {
+    "icon": "ICON FILE PATH"
+  }
+}
