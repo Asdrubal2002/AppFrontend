@@ -1,5 +1,5 @@
 export const COLORS = {
-    BlueWord: '#0054bbff',       
+    BlueWord: '#0054bbff', // #0054BB    
     BlueSkyWord: '#53bdfaff',     
 
     Modals: '#111827',

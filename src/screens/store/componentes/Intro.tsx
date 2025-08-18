@@ -69,7 +69,7 @@ const StoreIntro = forwardRef<StoreIntroRef, StoreIntroProps>(({
     <View style={tw`flex-1`}>
       {/* Banner con URL exacta */}
       <Animated.Image
-        source={{ uri: banner ? `${API_BASE_URL}${banner}` : DEFAULT_BANNER_BASE64 }}
+        source={{ uri: banner ? `${banner}` : DEFAULT_BANNER_BASE64 }}
         style={[
           tw`w-full h-[45%] absolute top-0 opacity-20`,
           { opacity: fadeIn }
@@ -81,7 +81,7 @@ const StoreIntro = forwardRef<StoreIntroRef, StoreIntroProps>(({
       <Animated.View style={[tw`flex-1 justify-center items-center`, { opacity: fadeIn }]}>
         <Animated.View style={[tw``, logoStyle]}>
           <Image
-            source={{ uri: logo ? `${API_BASE_URL}${logo}` : DEFAULT_LOGO_BASE64 }}
+            source={{ uri: logo ? `${logo}` : DEFAULT_LOGO_BASE64 }}
             style={tw`w-36 h-36 rounded-full border border-white/20`}
           />
         </Animated.View>

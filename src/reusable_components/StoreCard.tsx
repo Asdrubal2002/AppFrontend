@@ -89,7 +89,7 @@ const StoreCard = ({ item, onPress, compact = false }) => {
           <View style={tw`relative w-20 h-20 rounded-full overflow-hidden bg-gray-700 `}>
             <Image
               source={{
-                  uri: item.logo ? `${API_BASE_URL}${item.logo}` : DEFAULT_LOGO_BASE64
+                  uri: item.logo ? `${item.logo}` : DEFAULT_LOGO_BASE64
               }}
               style={tw`w-full h-full`}
               resizeMode="cover"

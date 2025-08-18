@@ -250,7 +250,7 @@ const PanelStore = () => {
                     </View>
                 </View>
 
-                <TouchableOpacity
+                {/* <TouchableOpacity
                     onPress={async () => {
                         await AsyncStorage.removeItem('storeSetupChecklist');
                         Alert.alert('Checklist reiniciado');
@@ -258,7 +258,7 @@ const PanelStore = () => {
                     style={tw`bg-red-600 px-4 py-2 rounded-lg mt-4`}
                 >
                     <Text style={tw`text-white font-semibold`}>🗑 Reiniciar Checklist</Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
             </ScrollView>
         </View>
 

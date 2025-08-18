@@ -204,7 +204,7 @@ const LocationPicker = ({
 
           {selectedNeighborhood ? (
             <Text style={tw`text-gray-300 text-sm text-center`}>
-              Estás cubriendo el <Text style={tw`text-white font-medium`}>{neighborhoods.find(n => n.id === selectedNeighborhood)?.name}</Text> en la ciudad de <Text style={tw`text-white font-medium`}>{cities.find(c => c.id === selectedCity)?.name}</Text>, <Text style={tw`text-white font-medium`}>{countries.find(c => c.id === selectedCountry)?.name}</Text>.
+              Estás cubriendo <Text style={tw`text-white font-medium`}>{neighborhoods.find(n => n.id === selectedNeighborhood)?.name}</Text> en la ciudad de <Text style={tw`text-white font-medium`}>{cities.find(c => c.id === selectedCity)?.name}</Text>, <Text style={tw`text-white font-medium`}>{countries.find(c => c.id === selectedCountry)?.name}</Text>.
             </Text>
           ) : selectedCity ? (
             <Text style={tw`text-gray-300 text-sm text-center`}>

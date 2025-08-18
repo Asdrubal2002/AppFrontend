@@ -22,8 +22,6 @@ import RuvloLogo from '../../utils/imgs/ruvlo.png';
 import { useAuthStatus } from '../../api/auth/useUsers';
 import LocationStatusButtons from '../../reusable_components/LocationStatusButtons';
 
-
-
 const Home = () => {
   const [search, setSearch] = useState('');
   const [showModal, setShowModal] = useState(false);
@@ -507,7 +505,7 @@ const Home = () => {
         >
           <Ionicons name="search" size={20} color="#ffffff" style={tw`mr-2`} />
           <TextInput
-            placeholder="Busca lo que necesitas"
+            placeholder="Busca el producto o negocio"
             placeholderTextColor="#ccc"
             value={search}
             onChangeText={setSearch}

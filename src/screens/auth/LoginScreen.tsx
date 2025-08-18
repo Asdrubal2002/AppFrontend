@@ -198,7 +198,7 @@ const LoginScreen = () => {
         <>
           <PinInput pin={pin} setPin={setPin} />
           <AuthButton
-            title="Ingresar a mi cuenta"
+            title={mutation.isPending ? "Ingresando..." : "Ingresar a mi cuenta"}
             icon={<Ionicons name="enter-outline" size={20} color="#fff" />}
             onPress={handleLogin}
           />

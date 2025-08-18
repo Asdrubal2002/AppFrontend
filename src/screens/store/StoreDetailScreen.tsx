@@ -149,7 +149,7 @@ const StoreDetailScreen = ({ route }) => {
             name: store.name,
             latitude: store.latitude,
             longitude: store.longitude,
-            logo: store.logo ? `${API_BASE_URL}${store.logo}` : undefined, // asegúrate de anteponer tu dominio
+            logo: store.logo ? `${store.logo}` : undefined, // asegúrate de anteponer tu dominio
         },
         userLocation: location,
         showRoute: true,
@@ -162,7 +162,7 @@ const StoreDetailScreen = ({ route }) => {
                 <TouchableOpacity onPress={() => openImage(store.banner)} activeOpacity={0.85}>
                     <Image
                         source={{
-                            uri: store.banner ? `${API_BASE_URL}${store.banner}` : DEFAULT_BANNER_BASE64
+                            uri: store.banner ? `${store.banner}` : DEFAULT_BANNER_BASE64
                         }}
 
                         style={{ width: '100%', height: '84%' }}
@@ -199,7 +199,7 @@ const StoreDetailScreen = ({ route }) => {
                         <TouchableOpacity onPress={() => openImage(store.logo)} activeOpacity={0.85}>
                             <Image
                                 source={{
-                                    uri: store.logo ? `${API_BASE_URL}${store.logo}` : DEFAULT_LOGO_BASE64
+                                    uri: store.logo ? `${store.logo}` : DEFAULT_LOGO_BASE64
                                 }}
                                 style={tw`w-20 h-20 rounded-full border-2`}
                             />

@@ -260,7 +260,7 @@ const StoreAdmin = () => {
                 uri: banner?.uri
                   ? banner.uri
                   : store?.banner
-                    ? `${API_BASE_URL}${store.banner}`
+                    ? `${store.banner}`
                     : DEFAULT_BANNER_BASE64,
               }}
               style={tw`w-full h-full`}
@@ -298,7 +298,7 @@ const StoreAdmin = () => {
                 uri: logo?.uri
                   ? logo.uri
                   : store?.logo
-                    ? `${API_BASE_URL}${store.logo}`
+                    ? `${store.logo}`
                     : DEFAULT_LOGO_BASE64,
               }}
               style={tw`w-full h-full`}

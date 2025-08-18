@@ -96,8 +96,8 @@ export const loginUser = async (credentials: { username: string; password: strin
     const response = await axiosInstance.post('auth/login/', credentials);
     const { access, refresh, username, is_seller, store_ids } = response.data;
     
-    console.log("Access:", access);
-    console.log("Refresh:", refresh);
+    // console.log("Access:", access);
+    // console.log("Refresh:", refresh);
 
     // 3. Guardar tokens y datos de usuario
     await saveTokens(access, refresh);
