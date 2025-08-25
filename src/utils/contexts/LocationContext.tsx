@@ -1,4 +1,3 @@
-// contexts/LocationContext.tsx
 import React, { createContext, useContext, useState } from 'react';
 
 type LocationCoords = {

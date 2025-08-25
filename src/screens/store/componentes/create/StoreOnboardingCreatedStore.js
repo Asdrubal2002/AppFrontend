@@ -3,7 +3,7 @@ import Onboarding from 'react-native-onboarding-swiper';
 import { Image } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-const StoreOnboarding = ({ onFinish }) => {
+const StoreOnboardingCreatedStore = ({ onFinish }) => {
   return (
     <Onboarding
       onDone={onFinish}
@@ -16,50 +16,49 @@ const StoreOnboarding = ({ onFinish }) => {
           backgroundColor: '#040404',
           image: (
             <Image
-              source={require('../../../../utils/imgs/ruvlo.png')}
-              style={{ width: 200, height: 200 }}
+              source={require('../../../../utils/imgs/setting.png')}
+              style={{ width: 300, height: 300 }}
               resizeMode="contain"
             />
           ),
-          title: 'Crea tu negocio en Ruvlo',
-          subtitle: 
-            'La plataforma que impulsa tu negocio, conecta con más clientes y hace que tus ventas crezcan.',
-          titleStyles: { marginTop: 20, color: 'white' },
-          subTitleStyles: { marginTop: 10, paddingHorizontal: 30, color: '#d1d5db', textAlign: 'center' }
-        },
-
-        {
-          backgroundColor: '#121212',
-          image: (
-            <Image source={require('../../../../utils/imgs/target.png')} style={{ width: 300, height: 300 }} />
-          ),
-          title: 'Más visibilidad',
-          subtitle: 
-            'Tu negocio será más fácil de encontrar. Con Ruvlo, nuevos clientes podrán descubrirte cada día.',
-          titleStyles: { marginTop: 20, color: 'white' },
-          subTitleStyles: { marginTop: 10, paddingHorizontal: 30, color: '#d1d5db', textAlign: 'center' }
-        },
-
-        {
-          backgroundColor: '#040404',
-          image: (
-            <Image source={require('../../../../utils/imgs/todoenlugar.png')} style={{ width: 300, height: 300 }} />
-          ),
-          title: 'Todo en un solo lugar',
-          subtitle: 
-            'Gestiona tu catálogo, promociones e inventario desde una única aplicación fácil de usar.',
-          titleStyles: { marginTop: 20, color: 'white' },
-          subTitleStyles: { marginTop: 10, paddingHorizontal: 30, color: '#d1d5db', textAlign: 'center' }
-        },
-
-        {
-          backgroundColor: '#121212',
-          image: (
-            <Image source={require('../../../../utils/imgs/social.png')} style={{ width: 300, height: 300 }} />
-          ),
-          title: 'Conexión real',
+          title: 'Empiezas desde "0"',
           subtitle:
-            'Acerca tu negocio a la comunidad. Comparte novedades y conecta directamente con tus clientes.',
+            'Para que tu negocio funcione perfectamente, necesitamos organizarlo bien. Comencemos con la configuración básica.',
+          titleStyles: { marginTop: 20, color: 'white' },
+          subTitleStyles: { marginTop: 10, paddingHorizontal: 30, color: '#d1d5db', textAlign: 'center' }
+        },
+
+        {
+          backgroundColor: '#121212',
+          image: (
+            <Image source={require('../../../../utils/imgs/creative.png')} style={{ width: 300, height: 300 }} />
+          ),
+          title: 'Presentación',
+          subtitle:
+            'Para atraer clientes, tu negocio necesita presentación profesional: logo, banner atractivo, categorías claras y contenido relevante.', titleStyles: { marginTop: 20, color: 'white' },
+          subTitleStyles: { marginTop: 10, paddingHorizontal: 30, color: '#d1d5db', textAlign: 'center' }
+        },
+
+        {
+          backgroundColor: '#040404',
+          image: (
+            <Image source={require('../../../../utils/imgs/shipping.png')} style={{ width: 300, height: 300 }} />
+          ),
+          title: 'Métodos',
+          subtitle:
+            'Configura también tus métodos de pago aceptados y define las zonas y métodos de envío o entrega para tus clientes.',
+          titleStyles: { marginTop: 20, color: 'white' },
+          subTitleStyles: { marginTop: 10, paddingHorizontal: 30, color: '#d1d5db', textAlign: 'center' }
+        },
+
+        {
+          backgroundColor: '#121212',
+          image: (
+            <Image source={require('../../../../utils/imgs/product.png')} style={{ width: 300, height: 300 }} />
+          ),
+          title: 'Tus ventas',
+          subtitle:
+           'Clasifica todos tus productos en categorías específicas y describe cada uno con detalle para aumentar tus ventas y fidelizar clientes.',
           titleStyles: { marginTop: 20, color: 'white' },
           subTitleStyles: { marginTop: 10, paddingHorizontal: 30, color: '#d1d5db', textAlign: 'center' }
         },
@@ -67,10 +66,10 @@ const StoreOnboarding = ({ onFinish }) => {
         {
           backgroundColor: '#040404',
           image: (
-            <Image source={require('../../../../utils/imgs/order.png')} style={{ width: 300, height: 300 }} />
+            <Image source={require('../../../../utils/imgs/final.png')} style={{ width: 300, height: 300 }} />
           ),
-          title: 'Tu crecimiento empieza aquí',
-          subtitle: 
+          title: 'Empieza a crear tu meta.',
+          subtitle:
             'Con Ruvlo tienes las herramientas para organizar, atraer clientes y hacer crecer tu negocio paso a paso.',
           titleStyles: { marginTop: 20, color: 'white' },
           subTitleStyles: { marginTop: 10, paddingHorizontal: 30, color: '#d1d5db', textAlign: 'center' }
@@ -80,4 +79,4 @@ const StoreOnboarding = ({ onFinish }) => {
   );
 };
 
-export default StoreOnboarding;
+export default StoreOnboardingCreatedStore;

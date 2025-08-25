@@ -80,7 +80,7 @@ const StoreDetailScreen = ({ route }) => {
     const closeModalMap = () => setModalVisibleM(false);
 
     const openImage = (uri) => {
-        const fullUri = `${API_BASE_URL}${uri}`;
+        const fullUri = `${uri}`;
         setSelectedImage(fullUri);
         setModalVisible(true);
     };

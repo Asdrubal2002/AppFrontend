@@ -131,7 +131,7 @@ const CreateOfert = () => {
                 style={tw`w-[48%] mb-4 p-2 bg-gray-800 rounded-xl`}
             >
                 <Image
-                    source={{ uri: item.preview_image ? `${API_BASE_URL}${item.preview_image}` : DEFAULT_BANNER_BASE64 }}
+                    source={{ uri: item.preview_image ? `${item.preview_image}` : DEFAULT_BANNER_BASE64 }}
                     style={tw`w-full h-28 rounded-lg mb-2`}
                     resizeMode="cover"
                 />
@@ -387,8 +387,9 @@ const CreateOfert = () => {
                 />
 
                 <AuthButton
-                    title="Crear Combo"
+                    title={isPending ? "Creando..." : "Crear Combo"}
                     onPress={handleCreateCombo}
+                    disabled={isPending} // opcional, para que no dispare múltiples veces
                 />
 
             </ReusableModal>

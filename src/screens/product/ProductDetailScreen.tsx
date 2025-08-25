@@ -141,7 +141,7 @@ export default function ProductDetailScreen() {
             name: product.name,
             latitude: product.store_latitude,
             longitude: product.store_longitude,
-            logo: image ? `${API_BASE_URL}${image}` : undefined,
+            logo: image ? `${image}` : undefined,
         },
         userLocation: location,
         showRoute: true,
@@ -536,14 +536,14 @@ export default function ProductDetailScreen() {
                     )}
 
                     {product.options?.length > 0 && !selectedVariant && (
-                        <View style={tw`bg-yellow-900/30 border border-yellow-700 rounded-xl p-3 mb-4 flex-row items-start`}>
-                            <Ionicons name="information-circle" size={18} color="#FBBF24" style={tw`mr-2 mt-0.5`} />
+                        <View style={tw`bg-blue-900/30 border border-[${COLORS.BlueSkyWord}] rounded-xl p-3 mb-4 flex-row items-start`}>
+                            <Ionicons name="information-circle" size={18} color="#1ba1eeff" style={tw`mr-2 mt-0.5`} />
                             <Text
-                                style={tw`text-yellow-100 text-sm font-medium flex-1 flex-wrap`}
+                                style={tw`text-blue-100 text-sm font-medium flex-1 flex-wrap`}
                                 numberOfLines={0}
                             >
                                 Por favor selecciona:{' '}
-                                <Text style={tw`font-bold text-yellow-400`}>
+                                <Text style={tw`font-bold text-[${COLORS.BlueSkyWord}]`}>
                                     {product.options.map((opt) => opt.name).join(', ')}
                                 </Text>{' '}
                                 antes de continuar.

@@ -14,6 +14,7 @@ import { daysOfWeek } from '../../../../utils/constants';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import PreChecklistStep from './steps/PreChecklistStep';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import StoreOnboarding from './StoreOnboarding';
 
 
 const CreateStore = () => {
@@ -82,6 +83,9 @@ const CreateStore = () => {
 
   const { mutate: createStore, isPending: creating } = useCreateStore();
   const { mutate: updateStore, isPending: updating } = useUpdateStore(storeId);
+
+  const [showTutorial, setShowTutorial] = useState(true);
+
 
   const scrollRef = useRef(null);
 
@@ -246,7 +250,13 @@ const CreateStore = () => {
     });
   };
 
+  const handleFinishTutorial = async () => {
+    setShowTutorial(false);
+  };
 
+  if (showTutorial) {
+    return <StoreOnboarding onFinish={handleFinishTutorial} />;
+  }
 
   return (
     <ScrollView

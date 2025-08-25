@@ -372,6 +372,7 @@ const UserProfileScreen = () => {
             onChangeText={(text) => setForm({ ...form, document_number: text })}
             placeholder="123456789"
             autoFocus
+            keyboardType="numeric"
           />
         )}
       </View>
@@ -630,10 +631,10 @@ const UserProfileScreen = () => {
 
       <View style={tw`mb-6`}>
         <AuthButton
-          title={mutation.isLoading ? 'Actualizando...' : 'Actualizar datos'}
+          title={mutation.isPending ? 'Actualizando...' : 'Actualizar datos'}
           onPress={handleSubmit}
-          disabled={mutation.isLoading}
-          loading={mutation.isLoading}
+          disabled={mutation.isPending}
+          loading={mutation.isPending}
         />
       </View>
       {/* Botón de Guardar */}

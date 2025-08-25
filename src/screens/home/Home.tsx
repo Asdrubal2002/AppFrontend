@@ -143,18 +143,18 @@ const Home = () => {
 
   return (
     <View style={tw`flex-1`}>
-       <Ionicons
-              name="cube"
-              size={700}
-              color="white"
-              style={{
-                position: 'absolute',
-                top: 10,
-                left: 0,
-                opacity: 0.09, // Nivel de transparencia
-                zIndex: 0,
-              }}
-            />
+      <Ionicons
+        name="cube"
+        size={700}
+        color="white"
+        style={{
+          position: 'absolute',
+          top: 10,
+          left: 0,
+          opacity: 0.09, // Nivel de transparencia
+          zIndex: 0,
+        }}
+      />
       <ScrollView>
         {/* Conteo de resultados */}
         {(isLocating || totalStores > 0 || totalProducts > 0) && (
@@ -301,7 +301,7 @@ const Home = () => {
         {stores.length > 0 && (
           <View style={tw`mb-6`}>
             <View style={tw`flex-row justify-between items-center px-4 mb-2`}>
-              <Text style={tw`text-white text-lg font-bold`}>Negocios</Text>
+              <Text style={tw`text-white text-lg font-bold`}>Negocios encontrados</Text>
               <TouchableOpacity
                 onPress={() =>
                   navigation.navigate('ListStores', {
@@ -365,133 +365,154 @@ const Home = () => {
           ) : (
             // Vista inicial sin búsqueda
             <>
-            
-            
-             <View style={tw`items-center justify-center px-6 pt-25`}>
-              <Image
-                source={RuvloLogo}
-                style={tw`w-20 h-20 mb-2`}
-                resizeMode="contain"
-              />
-              <Text style={tw`text-gray-300 text-xl font-bold text-center mb-2`}>
-                Ruvlo
-              </Text>
-              <Text style={tw`text-gray-400 text-base text-center mb-6 `}>
-                Elige tu ubicación o usa tu GPS para encontrar los negocios y productos más cercanos a ti.
-              </Text>
 
-              {/* Botones de acción */}
-              <View style={tw`flex-col justify-center items-center mt-6`}>
-                {/* Fila superior */}
-                <View style={tw`flex-row justify-center items-center gap-6`}>
-                  {/* Elegir ubicación */}
-                  <View style={tw`items-center`}>
-                    <TouchableOpacity
-                      onPress={handleOpenFilters}
-                      style={tw`bg-gray-700/80 p-4 rounded-full`}
-                    >
-                      <Ionicons name="location-outline" size={24} color="#ffffff" />
-                    </TouchableOpacity>
-                    <Text style={tw`text-xs text-gray-300 mt-2 text-center`}>Elegir ubicación</Text>
+
+              <View style={tw`items-center justify-center px-6 pt-25`}>
+                <Image
+                  source={RuvloLogo}
+                  style={tw`w-20 h-20 mb-2`}
+                  resizeMode="contain"
+                />
+                {/* <Text style={tw`text-gray-300 text-xl font-bold text-center mb-2`}>
+                  Ruvlo
+                </Text> */}
+                <Text style={tw`text-gray-300 text-base text-center mb-6 `}>
+                  Elige tu ubicación o usa tu GPS para encontrar los negocios y productos más cercanos a ti.
+                </Text>
+
+                {/* Botones de acción */}
+                <View style={tw`flex-col justify-center items-center mt-6`}>
+                  {/* Fila superior */}
+                  <View style={tw`flex-row justify-center items-center gap-6`}>
+                    {/* Elegir ubicación */}
+                    <View style={tw`items-center`}>
+                      <TouchableOpacity
+                        onPress={handleOpenFilters}
+                        style={tw`bg-gray-700/80 p-4 rounded-full`}
+                      >
+                        <Ionicons name="location-outline" size={24} color="#ffffff" />
+                      </TouchableOpacity>
+                      <Text
+                        style={tw`text-xs text-gray-300 mt-2 text-center min-w-[80px] max-w-[100px]`}
+                        numberOfLines={2}
+                      >
+                        {location ? 'Cambiar ubicación' : 'Seleccionar mi ubicación'}
+                      </Text>
+                    </View>
+
+                    {/* Ubicación automática */}
+                    <View style={tw`items-center`}>
+                      <TouchableOpacity
+                        onPress={checkPermissionAndLocation}
+                        disabled={isLocating}
+                        style={[
+                          tw`p-4 rounded-full`,
+                          {
+                            backgroundColor: isLocating
+                              ? '#4B5563'
+                              : location
+                                ? COLORS.BlueWord
+                                : 'rgba(77, 79, 80, 0.7)',
+                          },
+                        ]}
+                      >
+                        {isLocating ? (
+                          <ActivityIndicator color="#ffffff" size="small" />
+                        ) : (
+                          <Ionicons name="locate" size={24} color="#ffffff" />
+                        )}
+                      </TouchableOpacity>
+                      <Text
+                        style={[
+                          tw`text-xs mt-2 px-2 py-1 rounded-full text-center min-w-[80px] max-w-[100px]`,
+                          location
+                            ? [tw`text-white font-semibold`, { backgroundColor: COLORS.BlueWord }]
+                            : tw`text-gray-300`,
+                        ]}
+                        numberOfLines={2}
+                      >
+                        {isLocating ? 'Detectando ubicación...' : location ? 'Ubicación obtenida' : 'Obtener mi ubicación'}
+                      </Text>
+                    </View>
+
+                    {/* Escanear QR */}
+                    <View style={tw`items-center`}>
+                      <TouchableOpacity
+                        onPress={() => navigation.navigate('QRScanner')}
+                        style={tw`bg-gray-700/80 p-4 rounded-full`}
+                      >
+                        <Ionicons name="scan-outline" size={24} color="#ffffff" />
+                      </TouchableOpacity>
+                      <Text
+                        style={tw`text-xs text-gray-300 mt-2 text-center min-w-[80px] max-w-[100px]`}
+                        numberOfLines={2}
+                      >
+                        Escanear QR de negocio
+                      </Text>
+                    </View>
                   </View>
 
-                  {/* Ubicación automática */}
-                  <View style={tw`items-center`}>
-                    <TouchableOpacity
-                      onPress={checkPermissionAndLocation}
-                      disabled={isLocating}
-                      style={[
-                        tw`p-4 rounded-full`,
-                        {
-                          backgroundColor: isLocating
-                            ? '#4B5563'
-                            : location
-                              ? COLORS.BlueWord
-                              : 'rgba(77, 79, 80, 0.7)',
-                        },
-                      ]}
-                    >
-                      {isLocating ? (
-                        <ActivityIndicator color="#ffffff" size="small" />
-                      ) : (
-                        <Ionicons name="locate" size={24} color="#ffffff" />
-                      )}
-                    </TouchableOpacity>
-                    <Text
-                      style={[
-                        tw`text-xs mt-2 px-2 py-1 rounded-full`,
-                        location
-                          ? [tw`text-white font-semibold`, { backgroundColor: COLORS.BlueWord }]
-                          : tw`text-gray-300`,
-                      ]}
-                    >
-                      {location ? 'Ubicación obtenida' : 'Usar mi ubicación'}
-                    </Text>
-                  </View>
-
-                  {/* Escanear QR */}
-                  <View style={tw`items-center`}>
-                    <TouchableOpacity
-                      onPress={() => navigation.navigate('QRScanner')}
-                      style={tw`bg-gray-700/80 p-4 rounded-full`}
-                    >
-                      <Ionicons name="scan-outline" size={24} color="#ffffff" />
-                    </TouchableOpacity>
-                    <Text style={tw`text-xs text-gray-300 mt-2 text-center`}>Escanear QR</Text>
-                  </View>
-                </View>
-
-                {/* Fila inferior */}
-                <View style={tw`flex-row justify-center items-center gap-6 mt-6`}>
-                  {/* Ver productos */}
-                  <View style={tw`items-center`}>
-                    <TouchableOpacity
-                      onPress={() => navigation.navigate('ListProducts')}
-                      style={tw`bg-gray-700/80 p-4 rounded-full`}
-                    >
-                      <Ionicons name="pricetags-outline" size={24} color="#ffffff" />
-                    </TouchableOpacity>
-                    <Text style={tw`text-xs text-gray-300 mt-2 text-center`}>Ver productos</Text>
-                  </View>
-
-                  {/* Ver negocios */}
-                  <View style={tw`items-center`}>
-                    <TouchableOpacity
-                      onPress={() => navigation.navigate('ListStores')}
-                      style={tw`bg-gray-700/80 p-4 rounded-full`}
-                    >
-                      <Ionicons name="storefront-outline" size={24} color="#ffffff" />
-                    </TouchableOpacity>
-                    <Text style={tw`text-xs text-gray-300 mt-2 text-center`}>Ver negocios</Text>
-                  </View>
-                </View>
-
-                {!isAuthenticated ? (
-                  <View style={tw`flex-row justify-center items-center gap-6 mt-8`}>
+                  {/* Fila inferior */}
+                  <View style={tw`flex-row justify-center items-center gap-6 mt-6`}>
+                    {/* Ver productos */}
                     {/* Ver productos */}
                     <View style={tw`items-center`}>
                       <TouchableOpacity
-                        onPress={() =>
-                          navigation.navigate('Tabs', {
-                            screen: 'Perfil',
-                            params: { screen: 'Login' },
-                          })
-                        }
+                        onPress={() => navigation.navigate('ListProducts')}
                         style={tw`bg-gray-700/80 p-4 rounded-full`}
                       >
-                        <Ionicons name="enter-outline" size={24} color="#ffffff" />
+                        <Ionicons name="pricetags-outline" size={24} color="#ffffff" />
                       </TouchableOpacity>
-                      <Text style={tw`text-xs text-gray-300 mt-2 text-center`}>Ingresar a mi cuenta</Text>
+                      <Text
+                        style={tw`text-xs text-gray-300 mt-2 text-center min-w-[80px] max-w-[100px]`}
+                        numberOfLines={2}
+                      >
+                        {location ? 'Ver productos cercanos' : 'Ver todos los productos'}
+                      </Text>
+                    </View>
+
+                    {/* Ver negocios */}
+                    <View style={tw`items-center`}>
+                      <TouchableOpacity
+                        onPress={() => navigation.navigate('ListStores')}
+                        style={tw`bg-gray-700/80 p-4 rounded-full`}
+                      >
+                        <Ionicons name="storefront-outline" size={24} color="#ffffff" />
+                      </TouchableOpacity>
+                      <Text
+                        style={tw`text-xs text-gray-300 mt-2 text-center min-w-[80px] max-w-[100px]`}
+                        numberOfLines={2}
+                      >
+                        {location ? 'Ver negocios cercanos' : 'Ver todos los negocios'}
+                      </Text>
                     </View>
                   </View>
-                ) : (
-                  <></>
-                )}
+
+                  {!isAuthenticated ? (
+                    <View style={tw`flex-row justify-center items-center gap-6 mt-8`}>
+                      {/* Ver productos */}
+                      <View style={tw`items-center`}>
+                        <TouchableOpacity
+                          onPress={() =>
+                            navigation.navigate('Tabs', {
+                              screen: 'Perfil',
+                              params: { screen: 'Login' },
+                            })
+                          }
+                          style={tw`bg-gray-700/80 p-4 rounded-full`}
+                        >
+                          <Ionicons name="enter-outline" size={24} color="#ffffff" />
+                        </TouchableOpacity>
+                        <Text style={tw`text-xs text-gray-300 mt-2 text-center`}>Ingresar a mi cuenta</Text>
+                      </View>
+                    </View>
+                  ) : (
+                    <></>
+                  )}
+                </View>
               </View>
-            </View>
-            
             </>
-           
+
           )
         )}
 
@@ -521,7 +542,7 @@ const Home = () => {
         </View>
         {/* Modal ubicación */}
         <ReusableModal visible={showModal} onClose={() => setShowModal(false)}>
-          
+
           <LocationStatusButtons
             location={location}
             isLocating={isLocating}
@@ -549,7 +570,7 @@ const Home = () => {
             isCountriesLoading={isCountriesLoading}
           />
 
-          
+
         </ReusableModal>
       </View>
     </View>

@@ -183,7 +183,7 @@ export default function Checkout({ route }) {
                 <View style={tw`w-6 h-6 bg-blue-500 rounded-full`} />
               )}
               <Text style={tw`text-blue-300 ml-2 font-medium`}>
-                Mi canasta de productos en {currentCart.store_name || "Tienda"}
+                Productos en {currentCart.store_name || "Tienda"}
               </Text>
             </View>
           </TouchableOpacity>
@@ -259,12 +259,10 @@ export default function Checkout({ route }) {
               ))
             ) : (
               <Text style={tw`text-gray-400 text-center text-sm py-4`}>
-                No hay métodos de envío disponibles.
+                No hay métodos de envío disponibles para tu entrega.
               </Text>
             )}
           </View>
-
-
 
           <CartItemsList
             singles={singles}
@@ -276,8 +274,6 @@ export default function Checkout({ route }) {
             setLocalQuantities={setLocalQuantities}
             tw={tw}
           />
-
-
 
           <View style={tw`bg-gray-800 rounded-xl p-4 mt-4 mb-6`}>
             {/* Subtotal */}
@@ -340,16 +336,30 @@ export default function Checkout({ route }) {
           </View>
 
           <Pressable
-            // onPress={handleContinueCheckout}
-            onPress={() => Alert.alert("Aviso", "hasta aca llego el proyecto MVM")}
+            onPress={() => {
+              if (shippingMethods?.length === 0) return;
+              Alert.alert("Aviso", "En contrucción la siguiente parte, pasarela de pagos y demas checkout.");
+            }}
             style={({ pressed }) => [
-              tw`bg-green-600 px-4 py-3 rounded-xl items-center mt-4`,
-              pressed && tw`opacity-80`,
+              tw`px-4 py-3 rounded-xl items-center mt-4`,
+              shippingMethods?.length > 0
+                ? [tw`bg-green-600`, pressed && tw`opacity-80`] // Estilo normal
+                : [tw`bg-red-500`, tw`opacity-90`], // Estilo cuando no hay envío
             ]}
+            disabled={shippingMethods?.length === 0}
           >
-            <Text style={tw`text-white font-bold text-base`}>
-              Continuar con la compra
-            </Text>
+            {shippingMethods?.length > 0 ? (
+              <Text style={tw`text-white font-bold text-base`}>
+                Continuar con la compra
+              </Text>
+            ) : (
+              <View style={tw`flex-row items-center`}>
+                <Ionicons name="close-circle" size={20} color="white" style={tw`mr-2`} />
+                <Text style={tw`text-white font-bold text-base`}>
+                  No hay envío disponible
+                </Text>
+              </View>
+            )}
           </Pressable>
 
         </>

@@ -243,7 +243,7 @@ export default function AllProduct() {
                         latitude: p.store.location?.coordinates[1], // lat
                         longitude: p.store.location?.coordinates[0], // lon
                         type: 'product',
-                        logo: p.preview_image ? `${API_BASE_URL}${p.preview_image}` : undefined, // Usa el dominio correcto
+                        logo: p.preview_image ? `${p.preview_image}` : undefined, // Usa el dominio correcto
                       }))}
                     />
                   </View>

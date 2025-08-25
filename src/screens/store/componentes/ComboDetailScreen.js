@@ -19,13 +19,16 @@ import { getIsSeller, getStoreIds } from '../../../utils/authStorage';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 import CartSidePanel from '../../product/cart/CartSidePanel';
-
-
+import { useAuthStatus } from '../../../api/auth/useUsers';
+import AuthPrompt from '../../../reusable_components/AuthPrompt';
 
 const ComboDetailScreen = () => {
     const route = useRoute();
     const { comboId } = route.params;
     const { data: combo, isLoading } = useComboDetail(comboId);
+
+    const { isAuthenticated, loading } = useAuthStatus();
+
 
     const [selectedVariants, setSelectedVariants] = useState({});
     const [quantity, setQuantity] = useState(1);
@@ -91,7 +94,7 @@ const ComboDetailScreen = () => {
 
     // Calcula el máximo permitido según el stock de las variantes seleccionadas
     const getMaxQuantity = () => {
-        if (!combo?.items?.length) return 1;
+        if (!combo?.items || combo.items.length === 0) return 1;
 
         const stocks = combo.items.map((item) => {
             if (item.available_variants?.length > 0) {
@@ -105,6 +108,14 @@ const ComboDetailScreen = () => {
 
         return Math.max(Math.min(...stocks), 1);
     };
+
+
+    // Verifica que todos los productos con variantes tengan algo seleccionado
+    const allVariantsSelected = combo?.items?.every(
+        (item) =>
+            item.available_variants?.length === 0 ||
+            selectedVariants[item.product_id] !== undefined
+    ) ?? false;
 
 
     if (isLoading) return <FullScreenLoader />;
@@ -157,7 +168,7 @@ const ComboDetailScreen = () => {
             )}
             {combo.image && (
                 <Image
-                    source={{ uri: combo.image ? `${API_BASE_URL}${combo.image}` : DEFAULT_LOGO_BASE64, }}
+                    source={{ uri: combo.image ? `${combo.image}` : DEFAULT_LOGO_BASE64, }}
                     style={tw`w-full h-100`}
                     resizeMode="cover"
                 />
@@ -186,7 +197,7 @@ const ComboDetailScreen = () => {
                 </View>
 
                 {/* 🧩 Lista de productos del combo */}
-                {combo.items.map((item) => (
+                {combo?.items?.map((item) => (
                     <View
                         key={item.id}
                         style={tw`mb-5 p-4 rounded-xl bg-gray-800/60 border border-gray-700`}
@@ -242,14 +253,39 @@ const ComboDetailScreen = () => {
                 </View>
 
                 {/* 🛒 Botón agregar a bolsa */}
-                <TouchableOpacity
-                    onPress={handleAddToBag}
-                    style={tw`mt-6 bg-blue-600 py-3 rounded-xl shadow-md`}
-                >
-                    <Text style={tw`text-white text-center text-lg`}>
-                        {isPending ? 'Agregando...' : 'Agregar a mi bolsa'}
-                    </Text>
-                </TouchableOpacity>
+                {!isAuthenticated ? (
+                    <AuthPrompt
+                        title="¡Ingresa para llenar tu bolsa!"
+                        message="Inicia sesión o regístrate para guardar combos y realizar compras."
+                    />
+                ) : (
+                    <TouchableOpacity
+                        onPress={() => {
+                            if (!allVariantsSelected) {
+                                Alert.alert(
+                                    'Selecciona tus opciones',
+                                    'Debes elegir todas las variantes disponibles antes de continuar.'
+                                );
+                                return;
+                            }
+                            handleAddToBag();
+                        }}
+                        disabled={!allVariantsSelected || isPending}
+                        style={tw`mt-6 py-3 rounded-xl shadow-md ${!allVariantsSelected || isPending
+                            ? 'bg-gray-600'
+                            : 'bg-blue-600'
+                            }`}
+                    >
+                        <Text style={tw`text-white text-center text-lg`}>
+                            {isPending
+                                ? 'Agregando...'
+                                : !allVariantsSelected
+                                    ? 'Selecciona tus opciones'
+                                    : 'Agregar a mi bolsa'}
+                        </Text>
+                    </TouchableOpacity>
+                )}
+
             </View>
 
             <CartSidePanel

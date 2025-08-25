@@ -109,7 +109,7 @@ const LocationStep = ({
         <AuthButton
           title={
             isLocating
-              ? 'Obteniendo ubicación...'
+              ? 'Espera estamos obteniendo ubicación...'
               : storeData.latitude && storeData.longitude
                 ? 'Ubicación obtenida'
                 : 'Obtener ubicación actual'

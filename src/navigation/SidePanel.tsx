@@ -164,7 +164,7 @@ export default function SidePanel({ visible, onClose, isAuthenticated }) {
                                 <Text style={tw`text-gray-400 text-xs mb-2`}>ACTIVIDAD</Text>
                                 <MenuOption
                                     iconName="card-outline"
-                                    label="Compras"
+                                    label="Compras (En Desarrollo)"
                                     onPress={() => {
                                         onClose();
                                         // navigation.navigate('Tabs', { screen: 'Tiendas', params: { screen: 'CreateStore' } });
@@ -227,7 +227,7 @@ export default function SidePanel({ visible, onClose, isAuthenticated }) {
                                 <Text style={tw`text-gray-300 text-xs`}>{username}</Text>
                             )}
 
-                            <Text style={tw`text-gray-300 text-xs`}>Conectamos tiendas contigo</Text>
+                            <Text style={tw`text-gray-300 text-xs`}>Economía popular reinventada</Text>
 
                         </View>
                     </View>

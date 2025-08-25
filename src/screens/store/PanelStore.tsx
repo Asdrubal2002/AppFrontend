@@ -5,10 +5,10 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useStoreStats } from '../../api/store/useStores';
 import FullScreenLoader from '../../reusable_components/FullScreenLoader';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import StoreOnboarding from './componentes/create/StoreOnboarding';
 import { useCallback, useEffect, useState } from 'react';
 import { COLORS } from '../../../theme';
 import BackgroundIcon from '../../reusable_components/BackgroundIcon';
+import StoreOnboardingCreatedStore from './componentes/create/StoreOnboardingCreatedStore';
 
 
 const PanelStore = () => {
@@ -87,7 +87,7 @@ const PanelStore = () => {
     };
 
     if (showTutorial) {
-        return <StoreOnboarding onFinish={handleFinishTutorial} />;
+        return <StoreOnboardingCreatedStore onFinish={handleFinishTutorial} />;
     }
 
     const storeId = stats?.id;
@@ -155,7 +155,7 @@ const PanelStore = () => {
                                         action: () => navigation.navigate('StoreAdmin', { open: 'logo' })
                                     },
                                     bannerUploaded: {
-                                        label: 'Sube el fondo de tu negocio',
+                                        label: 'Sube el banner de tu negocio',
                                         icon: 'images-outline',
                                         action: () => navigation.navigate('StoreAdmin', { open: 'banner' })
                                     },

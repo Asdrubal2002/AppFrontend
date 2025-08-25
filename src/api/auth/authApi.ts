@@ -111,7 +111,7 @@ export const loginUser = async (credentials: { username: string; password: strin
 
     return response.data;
   } catch (error) {
-    console.error('Error en login:', error);
+    // console.error('Error en login:', error);
     throw error;
   }
 };

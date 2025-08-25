@@ -142,12 +142,12 @@ const MyShippings = () => {
 
     const {
         mutate: createMethodZone,
-        isLoading: isCreatingMethodZone
+        isPending: isCreatingMethodZone
     } = useCreateShippingMethodZone(storeId);
 
     const {
         mutate: deleteMethodZone,
-        isLoading: isDeletingMethodZone
+        isPending: isDeletingMethodZone
     } = useDeleteShippingMethodZone(storeId);
 
     const handleDelete = (relationId: number) => {
@@ -327,7 +327,7 @@ const MyShippings = () => {
                     })
                 )}
 
-                <Text style={tw`text-base text-gray-100 mt-6 mb-2`}>Estas presente en:</Text>
+                <Text style={tw`text-base text-gray-100 mt-6 mb-2`}>Haces envios/entregas en:</Text>
                 {isLoading ? (
                     <Text style={tw`text-gray-400`}>Cargando zonas...</Text>
                 ) : zones?.length === 0 ? (
@@ -550,7 +550,7 @@ const MyShippings = () => {
 
                         {/* Botón para crear relación */}
                         <AuthButton
-                            title={isCreatingMethodZone ? 'Creando...' : 'Crear Entrega'}
+                            title={isCreatingMethodZone ? 'Creando...' : 'Crear enlace de entrega'}
                             onPress={() => {
                                 if (!selectedZone || !selectedMethod || !customCost || !customDays) {
                                     Alert.alert("Campos incompletos", "Todos los campos son obligatorios");

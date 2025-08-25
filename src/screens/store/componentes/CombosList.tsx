@@ -85,7 +85,7 @@ const CombosList = ({ storeId }) => {
             {item.image && (
               <Image
                 source={{
-                  uri: item.image ? `${API_BASE_URL}${item.image}` : DEFAULT_LOGO_BASE64,
+                  uri: item.image ? `${item.image}` : DEFAULT_LOGO_BASE64,
                 }}
                 style={tw`w-full h-40 rounded-t-xl`}
                 resizeMode="cover"

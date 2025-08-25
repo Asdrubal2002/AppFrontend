@@ -32,7 +32,7 @@ const ProductCard = ({ item, compact = false }) => {
             <View>
                 <Image
                     source={{
-                        uri: item.preview_image ? `${API_BASE_URL}${item.preview_image}` : DEFAULT_BANNER_BASE64
+                        uri: item.preview_image ? `${item.preview_image}` : DEFAULT_BANNER_BASE64
                         }}
                     style={tw.style('w-full', compact ? 'h-24' : 'h-36', 'rounded-b')}
                     resizeMode="cover"

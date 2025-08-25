@@ -582,31 +582,57 @@ export const useCreateShippingMethodZone = (storeId: number) => {
       custom_cost?: string | number;
       custom_days?: number;
     }) => {
-      const response = await axiosInstance.post('/store/shipping-method-zones/', {
-        ...data,
-        custom_cost: data.custom_cost ? String(data.custom_cost) : "0.00",
-        custom_days: data.custom_days || 0
-      });
-      return response.data; // El JSON ya incluye los nombres
+      try {
+        const response = await axiosInstance.post(
+          '/store/shipping-method-zones/',
+          {
+            ...data,
+            custom_cost: data.custom_cost ? String(data.custom_cost) : "0.00",
+            custom_days: data.custom_days || 0,
+          }
+        );
+
+        console.log("✅ ShippingMethodZone creado:", response.status, response.data);
+
+        return response.data; // devolver el JSON directamente
+      } catch (err: any) {
+        console.error("❌ Error en mutationFn:", err.response || err.message);
+        throw err; // importante: relanzar el error para que entre en onError
+      }
     },
+
     onSuccess: async (newRelation) => {
-      // Actualización DIRECTA con los datos que ya vienen del backend
-      queryClient.setQueryData(['shippingMethodZones', storeId], (oldData: any) => [
-        ...(oldData || []),
-        newRelation // Usamos el objeto completo que devuelve el API
-      ]);
+      console.log("🎉 onSuccess ejecutado:", newRelation);
+
+      // Actualiza la caché directamente con el nuevo registro
+      queryClient.setQueryData(
+        ['shippingMethodZones', storeId],
+        (oldData: any) => [
+          ...(oldData || []),
+          newRelation,
+        ]
+      );
     },
+
     onError: (error: any) => {
+      console.log("⚠️ onError ejecutado:", error.response || error.message);
+
       if (error.response?.data) {
         const errorData = error.response.data;
+
+        // Construir mensaje legible
         const message = Object.entries(errorData)
-          .map(([key, val]) => `${key}: ${Array.isArray(val) ? val.join(', ') : val}`)
+          .map(
+            ([key, val]) =>
+              `${key}: ${Array.isArray(val) ? val.join(', ') : val}`
+          )
           .join('\n');
+
         Alert.alert('Error al crear', message);
       } else {
         Alert.alert('Error', 'No se pudo conectar al servidor');
       }
-    }
+    },
   });
 };
 

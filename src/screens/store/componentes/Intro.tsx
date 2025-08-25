@@ -1,23 +1,27 @@
-import React, { useEffect, forwardRef, useImperativeHandle } from 'react';
-import { View, Text, Image, } from 'react-native';
+import React, { useEffect, forwardRef, useImperativeHandle, useRef } from 'react';
+import { View, Text, Image, Pressable, TouchableOpacity } from 'react-native';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
   withTiming,
   Easing,
-  runOnJS
+  runOnJS,
+  cancelAnimation,
 } from 'react-native-reanimated';
 import tw from 'twrnc';
-import { API_BASE_URL, DEFAULT_BANNER_BASE64, DEFAULT_LOGO_BASE64 } from '../../../constants';
+import { DEFAULT_BANNER_BASE64, DEFAULT_LOGO_BASE64 } from '../../../constants';
 
 interface StoreIntroProps {
   banner?: string;
   logo?: string;
   storeName: string;
   onAnimationComplete?: () => void;
+  /** Tiempo para auto–ocultarse. Si es 0 o undefined, no auto–oculta. */
+  autoDismissMs?: number;
 }
 
 export interface StoreIntroRef {
+  /** Llama manualmente la animación de salida */
   startExitAnimation: () => void;
 }
 
@@ -25,61 +29,92 @@ const StoreIntro = forwardRef<StoreIntroRef, StoreIntroProps>(({
   banner,
   logo,
   storeName,
-  onAnimationComplete
+  onAnimationComplete,
+  autoDismissMs = 2500, // puedes cambiar el default
 }, ref) => {
-  // Animaciones premium
+  // Valores animados
   const fadeIn = useSharedValue(0);
-  const waveHeight = useSharedValue(0);
   const logoScale = useSharedValue(0.8);
 
-  // Misma función de salida
+  // Flag JS para evitar dobles ejecuciones
+  const isExitingRef = useRef(false);
+  const autoTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  const handleComplete = () => {
+    onAnimationComplete?.();
+  };
+
   const startExitAnimation = () => {
+    if (isExitingRef.current) return;
+    isExitingRef.current = true;
+
+    // Cancelar animaciones en curso por si quedan "pegadas"
+    cancelAnimation(fadeIn);
+    cancelAnimation(logoScale);
+
+    // Animación de salida
     fadeIn.value = withTiming(0, {
       duration: 600,
-      easing: Easing.in(Easing.exp)
-    }, () => {
-      if (onAnimationComplete) runOnJS(onAnimationComplete)();
+      easing: Easing.in(Easing.exp),
+    }, (finished) => {
+      if (finished) {
+        runOnJS(handleComplete)();
+      }
     });
-    waveHeight.value = withTiming(0, { duration: 800 });
+
+    logoScale.value = withTiming(0.95, { duration: 600, easing: Easing.inOut(Easing.quad) });
   };
 
   useImperativeHandle(ref, () => ({
-    startExitAnimation
-  }));
+    startExitAnimation,
+  }), []);
 
+  // Animaciones de entrada
   useEffect(() => {
     fadeIn.value = withTiming(1, { duration: 1000 });
-    waveHeight.value = withTiming(1, {
-      duration: 2000,
-      easing: Easing.out(Easing.quad)
-    });
     logoScale.value = withTiming(1, {
       duration: 800,
-      easing: Easing.out(Easing.back(1.5))
+      easing: Easing.out(Easing.back(1.5)),
     });
-  }, []);
 
+    if (autoDismissMs && autoDismissMs > 0) {
+      autoTimerRef.current = setTimeout(() => {
+        startExitAnimation();
+      }, autoDismissMs);
+    }
+
+    return () => {
+      if (autoTimerRef.current) clearTimeout(autoTimerRef.current);
+      cancelAnimation(fadeIn);
+      cancelAnimation(logoScale);
+    };
+  }, [autoDismissMs]);
+
+  const fadeStyle = useAnimatedStyle(() => ({
+    opacity: fadeIn.value,
+  }));
 
   const logoStyle = useAnimatedStyle(() => ({
     transform: [{ scale: logoScale.value }],
-    opacity: fadeIn.value
+    opacity: fadeIn.value,
   }));
 
   return (
-    <View style={tw`flex-1`}>
-      {/* Banner con URL exacta */}
+    // Pressable para permitir tap en cualquier parte y salir
+    <Pressable style={tw`flex-1`} onPress={startExitAnimation}>
+      {/* Banner */}
       <Animated.Image
         source={{ uri: banner ? `${banner}` : DEFAULT_BANNER_BASE64 }}
         style={[
           tw`w-full h-[45%] absolute top-0 opacity-20`,
-          { opacity: fadeIn }
+          fadeStyle,
         ]}
         blurRadius={2}
       />
 
       {/* Contenido principal */}
-      <Animated.View style={[tw`flex-1 justify-center items-center`, { opacity: fadeIn }]}>
-        <Animated.View style={[tw``, logoStyle]}>
+      <Animated.View style={[tw`flex-1 justify-center items-center`, fadeStyle]}>
+        <Animated.View style={logoStyle}>
           <Image
             source={{ uri: logo ? `${logo}` : DEFAULT_LOGO_BASE64 }}
             style={tw`w-36 h-36 rounded-full border border-white/20`}
@@ -95,9 +130,17 @@ const StoreIntro = forwardRef<StoreIntroRef, StoreIntroProps>(({
         <Text style={tw`text-white/50 text-xs tracking-[8px]`}>
           INGRESANDO
         </Text>
-      </Animated.View>
 
-    </View>
+        {/* Botón "Saltar" para forzar salida */}
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={startExitAnimation}
+          style={tw`absolute bottom-10 right-5  px-4 py-2 `}
+        >
+          <Text style={tw`text-white text-xs`}>INGRESAR</Text>
+        </TouchableOpacity>
+      </Animated.View>
+    </Pressable>
   );
 });
 

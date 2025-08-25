@@ -16,17 +16,14 @@ const StoreCard = ({ item, onPress, compact = false }) => {
         style={tw`w-48 mr-4 bg-gray-800 rounded-xl overflow-hidden`}
       >
         {/* Imagen o logo */}
-        {item.logo ? (
-          <Image
-            source={{
-              uri: item.logo ? `${API_BASE_URL}${item.logo}` : DEFAULT_LOGO_BASE64,
-            }}
-            style={tw`w-full h-24`}
-            resizeMode="cover"
-          />
-        ) : (
-          <View style={tw`bg-gray-700 h-24`} />
-        )}
+        <Image
+          source={{
+            uri: item.logo || DEFAULT_LOGO_BASE64
+          }}
+          style={tw`w-full h-24`}
+          resizeMode="cover"
+          defaultSource={{ uri: DEFAULT_LOGO_BASE64 }}
+        />
 
         {/* Info textual */}
         <View style={tw`p-3`}>
@@ -89,7 +86,7 @@ const StoreCard = ({ item, onPress, compact = false }) => {
           <View style={tw`relative w-20 h-20 rounded-full overflow-hidden bg-gray-700 `}>
             <Image
               source={{
-                  uri: item.logo ? `${item.logo}` : DEFAULT_LOGO_BASE64
+                uri: item.logo ? `${item.logo}` : DEFAULT_LOGO_BASE64
               }}
               style={tw`w-full h-full`}
               resizeMode="cover"

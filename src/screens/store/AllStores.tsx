@@ -25,7 +25,7 @@ import CategoryFilterBar from "../../reusable_components/CategoryFilterBar";
 import StoreCard from "../../reusable_components/StoreCard";
 import LocationStatusButtons from "../../reusable_components/LocationStatusButtons";
 import MapWithMarkers from "../../reusable_components/MapWithMarkers";
-import { API_BASE_URL } from "../../constants";
+import { API_BASE_URL, DEFAULT_LOGO_BASE64 } from "../../constants";
 
 
 const AllStores = () => {
@@ -269,7 +269,7 @@ const AllStores = () => {
                         latitude: store.latitude,
                         longitude: store.longitude,
                         type: 'store',
-                        logo: `${API_BASE_URL}${store.logo}`, // 👈 Asegúrate de usar la URL completa
+                        logo: store.logo ? `${store.logo}` : DEFAULT_LOGO_BASE64
                       }))}
                     />
                   </View>
