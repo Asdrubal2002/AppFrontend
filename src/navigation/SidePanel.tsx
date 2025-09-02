@@ -216,7 +216,7 @@ export default function SidePanel({ visible, onClose, isAuthenticated }) {
 
                     <View style={tw`mt-auto flex-row items-center justify-center pt-10`}>
                         <Image
-                            source={require('../utils/imgs/ruvlo.png')} // Ajusta el path
+                            source={require('../utils/imgs/ruvlo.png')} 
                             style={tw`w-10 h-10 mr-3`} // Tamaño pequeño con margen a la derecha
                             resizeMode="contain"
                         />

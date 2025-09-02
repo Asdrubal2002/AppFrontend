@@ -6,7 +6,7 @@ import tw from 'twrnc';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import PostItem from '../../../../reusable_components/PostItem';
 
-// Configuración del servidor (ajusta según tu entorno)
+
 
 const PostDetailsScreen = () => {
     const route = useRoute();

@@ -121,7 +121,7 @@ android {
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
-    implementation project(':react-native-camera')  // 👈 Asegúrate de que esta línea esté presente
+    implementation project(':react-native-camera') 
      // Firebase
     implementation(platform("com.google.firebase:firebase-bom:32.7.0")) // BOM para versiones
     implementation("com.google.firebase:firebase-messaging")
